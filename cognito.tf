@@ -32,6 +32,45 @@ resource "aws_cognito_user_pool" "main" {
       max_length = 256
     }
   }
+
+  schema {
+    attribute_data_type      = "String"
+    developer_only_attribute = false
+    mutable                  = true
+    name                     = "given_name"
+    required                 = false
+
+    string_attribute_constraints {
+      min_length = 1
+      max_length = 256
+    }
+  }
+
+  schema {
+    attribute_data_type      = "String"
+    developer_only_attribute = false
+    mutable                  = true
+    name                     = "family_name"
+    required                 = false
+
+    string_attribute_constraints {
+      min_length = 1
+      max_length = 256
+    }
+  }
+
+  schema {
+    attribute_data_type      = "String"
+    developer_only_attribute = false
+    mutable                  = true
+    name                     = "custom:role"
+    required                 = false
+
+    string_attribute_constraints {
+      min_length = 1
+      max_length = 50
+    }
+  }
 }
 
 # Create Cognito User Pool Client

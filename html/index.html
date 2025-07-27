@@ -10,163 +10,9 @@
     <!-- Font Awesome Icons for visuals -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        /* Navbar Styling */
-        .navbar {
-            background-color: #343a40 !important;
-            padding: 1rem 0;
-        }
-
-        .navbar-brand {
-            font-weight: bold;
-            font-size: 1.5rem;
-        }
-
-        .navbar-nav .nav-link {
-            color: #fff !important;
-            margin: 0 10px;
-            font-weight: 500;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #007bff !important;
-        }
-
-        .btn-login {
-            background-color: #007bff;
-            border-color: #007bff;
-            margin-right: 10px;
-        }
-
-        .btn-login:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-
-        .btn-register {
-            background-color: #28a745;
-            border-color: #28a745;
-        }
-
-        .btn-register:hover {
-            background-color: #1e7e34;
-            border-color: #1e7e34;
-        }
-
-        .hero-section {
-            background-color: #007bff;
-            color: white;
-            padding: 80px 0;
-            text-align: center;
-            border-bottom: 2px solid #e1e1e1;
-        }
-
-        .hero-section h1 {
-            font-size: 3rem;
-        }
-
-        .hero-section p {
-            font-size: 1.25rem;
-            font-weight: 300;
-        }
-
-        .upload-btn {
-            background-color: #007bff;
-            color: #fff;
-            border-radius: 5px;
-            border: none;
-            padding: 12px 25px;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-
-        .upload-btn:hover {
-            background-color: #0056b3;
-        }
-
-        .footer {
-            background-color: #343a40;
-            color: #fff;
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 50px;
-        }
-
-        .footer a {
-            color: #ddd;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Project Info Styling */
-        .project-info {
-            background-color: #f9f9f9;
-            padding: 60px 0;
-            margin-top: 30px;
-        }
-
-        .project-info h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 30px;
-            color: #333;
-        }
-
-        .project-info .feature-card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 20px;
-            background-color: #fff;
-            transition: all 0.3s ease-in-out;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-info .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .project-info .feature-card i {
-            font-size: 2.5rem;
-            color: #007bff;
-            margin-bottom: 15px;
-        }
-
-        .project-info ul {
-            list-style-type: none;
-            padding-left: 0;
-            font-size: 1.1rem;
-        }
-
-        .project-info ul li {
-            margin-bottom: 12px;
-        }
-
-        .project-info ul li::before {
-            content: '\2022';
-            color: #007bff;
-            font-size: 1.4rem;
-            padding-right: 10px;
-        }
-
-        .project-info-code {
-            background-color: #e9ecef;
-            padding: 20px;
-            border-radius: 8px;
-            font-family: monospace;
-            margin-top: 20px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-    </style>
+    <link rel="stylesheet" href="style.css">
+    
+ 
 </head>
 
 <body>
@@ -192,15 +38,37 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#project-info">About</a>
                     </li>
-                </ul>
-                
-                <div class="d-flex">
-                    <button class="btn btn-primary btn-login" onclick="redirectToCognito('login')">
-                        <i class="fas fa-sign-in-alt"></i> Login
-                    </button>
-                    <button class="btn btn-success btn-register" onclick="redirectToCognito('signup')">
-                        <i class="fas fa-user-plus"></i> Register
-                    </button>
+                </ul>                        <!-- Auth Buttons (shown when not logged in) -->
+                        <div class="d-flex auth-buttons">
+                            <button class="btn btn-primary btn-login" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <i class="fas fa-sign-in-alt"></i> Login
+                            </button>
+                            <button class="btn btn-success btn-register" data-bs-toggle="modal" data-bs-target="#registerModal">
+                                <i class="fas fa-user-plus"></i> Register
+                            </button>
+                        </div>
+
+                <!-- User Section (shown when logged in) -->
+                <div class="user-section">
+                    <div class="user-dropdown dropdown">
+                        <div class="user-avatar" data-bs-toggle="dropdown" aria-expanded="false" id="userAvatar">
+                            U
+                        </div>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li>
+                                <div class="user-info">
+                                    <div id="userName">User Name</div>
+                                    <small id="userEmail">user@example.com</small><br>
+                                    <small id="userRole" class="badge bg-primary">Customer</small>
+                                </div>
+                            </li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a class="dropdown-item" href="#photoGallery"><i class="fas fa-images"></i> My Photos</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -212,6 +80,31 @@
             <h1>Welcome to Image Uploader</h1>
             <p class="lead">Upload, manage, and share your images and videos with ease. Simple. Fast. Secure.</p>
             <a href="#upload-section" class="btn btn-light btn-lg">Start Uploading</a>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section id="upload-section" class="upload-section py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <h2 class="text-center mb-4">Upload Your Image</h2>
+                    <div class="upload-area">
+                        <form action="#" method="POST" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="imageUpload" class="form-label">Choose an image to upload:</label>
+                                <input type="file" class="form-control" id="imageUpload" name="image" accept="image/*" required>
+                                <div class="form-text">Drag and drop files here or click to browse. Supports: JPG, PNG, GIF, WebP</div>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="upload-btn">
+                                    <i class="fas fa-cloud-upload-alt"></i> Upload Image
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -250,76 +143,189 @@
             <h3 class="text-center mb-4">Tech Stack & Features</h3>
 
             <ul class="text-center">
-                <li><strong>Frontend:</strong> React (or Angular/Vue.js) hosted on Amazon S3 and served via CloudFront</li>
+                <li><strong>Frontend:</strong> Bootstrap 5 with vanilla JavaScript hosted on Amazon S3</li>
                 <li><strong>Backend:</strong> AWS Lambda (Node.js, Python, or any supported runtime)</li>
                 <li><strong>Database:</strong> DynamoDB (NoSQL)</li>
                 <li><strong>Authentication:</strong> Amazon Cognito for user authentication and authorization</li>
                 <li><strong>API Gateway:</strong> AWS API Gateway to expose Lambda functions as RESTful APIs</li>
+                <li><strong>Storage:</strong> Amazon S3 for image storage and static website hosting</li>
             </ul>
 
-            <h3 class="text-center">Sample Code Snippet for Uploading to S3</h3>
-            <div class="project-info-code">
-                <code>
-                    const AWS = require('aws-sdk');<br>
-                    const s3 = new AWS.S3();<br>
-                    const uploadFile = (fileBuffer, fileName) => {<br>
-                    &nbsp;&nbsp;const params = {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Bucket: 'your-bucket-name',<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Key: fileName,<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;Body: fileBuffer<br>
-                    &nbsp;&nbsp;};<br>
-                    &nbsp;&nbsp;s3.upload(params, (err, data) => {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;if (err) {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log("Error uploading:", err);<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;console.log("Successfully uploaded:", data);<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;}<br>
-                    &nbsp;&nbsp;});<br>
-                    };<br>
-                </code>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- Upload Section -->
-    <section id="upload-section" class="upload-section">
-        <div class="container">
+            <h3 class="text-center">Role-Based Access Control</h3>
             <div class="row">
-                <div class="col-md-6 mx-auto">
-                    <h2 class="text-center mb-4">Upload Your Image</h2>
-                    <form action="#" method="POST" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="imageUpload" class="form-label">Choose an image to upload:</label>
-                            <input type="file" class="form-control" id="imageUpload" name="image" accept="image/*" required>
-                        </div>
-                        <button type="submit" class="upload-btn">Upload Image</button>
-                    </form>
+                <div class="col-md-3 text-center">
+                    <span class="role-badge role-admin">Admin</span>
+                    <p><small>View all photos, manage users</small></p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <span class="role-badge role-manager">Manager</span>
+                    <p><small>View team photos</small></p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <span class="role-badge role-staff">Staff</span>
+                    <p><small>Upload and view own photos</small></p>
+                </div>
+                <div class="col-md-3 text-center">
+                    <span class="role-badge role-customer">Customer</span>
+                    <p><small>Upload and view own photos</small></p>
                 </div>
             </div>
+
         </div>
-    </section>
+    </section>            <!-- Login Modal -->
+            <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModalLabel">
+                                <i class="fas fa-sign-in-alt"></i> Sign In
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="loginForm">
+                                <div class="mb-3">
+                                    <label for="loginEmail" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="loginEmail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="loginPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="loginPassword" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="rememberMe">
+                                    <label class="form-check-label" for="rememberMe">
+                                        Remember me
+                                    </label>
+                                </div>
+                            </form>
+                            <div id="loginError" class="alert alert-danger d-none"></div>
+                            <div id="loginLoading" class="text-center d-none">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p>Signing in...</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="loginSubmit">Sign In</button>
+                            <div class="mt-2 text-center w-100">
+                                <small>Don't have an account? <a href="#" onclick="switchToRegister()">Create one</a></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2025 Image Uploader | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
-    </footer>
+            <!-- Register Modal -->
+            <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="registerModalLabel">
+                                <i class="fas fa-user-plus"></i> Create Account
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="registerForm">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerFirstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="registerFirstName" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="registerLastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="registerLastName" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerEmail" class="form-label">Email address</label>
+                                    <input type="email" class="form-control" id="registerEmail" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="registerPassword" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="registerPassword" required>
+                                    <div class="form-text">Password must be at least 8 characters with uppercase, lowercase, number, and symbol.</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="userRole" class="form-label">Role</label>
+                                    <select class="form-select" id="userRole" required>
+                                        <option value="customer">Customer</option>
+                                        <option value="staff">Staff</option>
+                                        <option value="manager">Manager</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                                    <label class="form-check-label" for="agreeTerms">
+                                        I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                                    </label>
+                                </div>
+                            </form>
+                            <div id="registerError" class="alert alert-danger d-none"></div>
+                            <div id="registerLoading" class="text-center d-none">
+                                <div class="spinner-border text-success" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p>Creating account...</p>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success" id="registerSubmit">Create Account</button>
+                            <div class="mt-2 text-center w-100">
+                                <small>Already have an account? <a href="#" onclick="switchToLogin()">Sign in</a></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+            <!-- Verification Modal -->
+            <div class="modal fade" id="verificationModal" tabindex="-1" aria-labelledby="verificationModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="verificationModalLabel">
+                                <i class="fas fa-envelope"></i> Verify Your Email
+                            </h5>
+                        </div>
+                        <div class="modal-body">
+                            <p>We've sent a verification code to your email address. Please enter it below:</p>
+                            <form id="verificationForm">
+                                <div class="mb-3">
+                                    <label for="verificationCode" class="form-label">Verification Code</label>
+                                    <input type="text" class="form-control" id="verificationCode" maxlength="6" required>
+                                </div>
+                            </form>
+                            <div id="verificationError" class="alert alert-danger d-none"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="verifySubmit">Verify</button>
+                            <button type="button" class="btn btn-link" id="resendCode">Resend Code</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <script>
-        function redirectToCognito(action) {
-            // These URLs will be dynamically replaced when uploaded to S3
-            const cognitoUrls = {
-                login: '${cognito_login_url}',
-                signup: '${cognito_signup_url}'
-            };
-            
-            window.location.href = cognitoUrls[action];
-        }
-    </script>
+            <!-- Footer -->
+            <footer class="footer">
+                <p>&copy; 2025 Image Uploader | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </footer>            <!-- Bootstrap JS and dependencies -->
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+            <!-- AWS SDK -->
+            <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1541.0.min.js"></script>
+            <!-- AWS Cognito Identity SDK -->
+            <script src="https://unpkg.com/amazon-cognito-identity-js@6.3.12/dist/amazon-cognito-identity.min.js"></script>
+            <!-- Dynamic Configuration -->
+            <script src="config.js"></script>
+            <!-- Custom JavaScript -->
+            <script src="index.js"></script>
 
 </body>
 

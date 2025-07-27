@@ -54,18 +54,52 @@ resource "aws_s3_bucket_website_configuration" "static_website_config" {
   }
 }
 
-# Upload the index.html file to the S3 bucket with Cognito URLs
+# Upload the index.html file to the S3 bucket
 resource "aws_s3_object" "index_file" {
   bucket = aws_s3_bucket.static_website.bucket
   key    = "index.html"
   content = templatefile("${path.module}/html/index.html", {
-    cognito_login_url  = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${var.region}.amazoncognito.com/login?client_id=${aws_cognito_user_pool_client.main.id}&response_type=code&scope=email+openid+profile&redirect_uri=https://${aws_s3_bucket.static_website.bucket}.s3-website-${var.region}.amazonaws.com/"
-    cognito_signup_url = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${var.region}.amazoncognito.com/signup?client_id=${aws_cognito_user_pool_client.main.id}&response_type=code&scope=email+openid+profile&redirect_uri=https://${aws_s3_bucket.static_website.bucket}.s3-website-${var.region}.amazonaws.com/"
+    cognito_login_url   = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${var.region}.amazoncognito.com/login?client_id=${aws_cognito_user_pool_client.main.id}&response_type=code&scope=email+openid+profile&redirect_uri=https://${aws_s3_bucket.static_website.bucket}.s3-website-${var.region}.amazonaws.com/"
+    cognito_signup_url  = "https://${aws_cognito_user_pool_domain.main.domain}.auth.${var.region}.amazoncognito.com/signup?client_id=${aws_cognito_user_pool_client.main.id}&response_type=code&scope=email+openid+profile&redirect_uri=https://${aws_s3_bucket.static_website.bucket}.s3-website-${var.region}.amazonaws.com/"
+    user_pool_id        = aws_cognito_user_pool.main.id
+    user_pool_client_id = aws_cognito_user_pool_client.main.id
+    cognito_domain      = aws_cognito_user_pool_domain.main.domain
   })
   content_type = "text/html"
 }
 
-# Upload the error.html file to the S3 bucket
+# Upload the CSS file
+resource "aws_s3_object" "style_file" {
+  bucket       = aws_s3_bucket.static_website.bucket
+  key          = "style.css"
+  source       = "html/style.css"
+  content_type = "text/css"
+}
+
+# Upload the JavaScript file
+resource "aws_s3_object" "js_file" {
+  bucket       = aws_s3_bucket.static_website.bucket
+  key          = "index.js"
+  source       = "html/index.js"
+  content_type = "application/javascript"
+}
+
+# Generate and upload dynamic config file
+resource "aws_s3_object" "config_file" {
+  bucket = aws_s3_bucket.static_website.bucket
+  key    = "config.js"
+  content = templatefile("${path.module}/html/config.js.template", {
+    region              = var.region
+    user_pool_id        = aws_cognito_user_pool.main.id
+    user_pool_client_id = aws_cognito_user_pool_client.main.id
+    auth_domain         = "${aws_cognito_user_pool_domain.main.domain}.auth.${var.region}.amazoncognito.com"
+    s3_bucket_name      = aws_s3_bucket.static_website.bucket
+    website_url         = "https://${aws_s3_bucket.static_website.bucket}.s3-website-${var.region}.amazonaws.com"
+  })
+  content_type = "application/javascript"
+}
+
+# Upload the error.html file
 resource "aws_s3_object" "error_file" {
   bucket       = aws_s3_bucket.static_website.bucket
   key          = "error.html"

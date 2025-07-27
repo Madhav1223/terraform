@@ -1,0 +1,516 @@
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: #343a40 !important;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: #fff !important;
+            margin: 0 10px;
+            font-weight: 500;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #007bff !important;
+        }
+
+        .btn-login {
+            background-color: #007bff;
+            border-color: #007bff;
+            margin-right: 10px;
+        }
+
+        .btn-login:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .btn-register {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-register:hover {
+            background-color: #1e7e34;
+            border-color: #1e7e34;
+        }
+
+        .hero-section {
+            background-color: #007bff;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 2px solid #e1e1e1;
+        }
+
+        .hero-section h1 {
+            font-size: 3rem;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            font-weight: 300;
+        }
+
+        .upload-btn {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        .upload-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background-color: #343a40;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        .footer a {
+            color: #ddd;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* User Avatar and Authentication Styling */
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .user-dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            min-width: 200px;
+        }
+
+        .user-info {
+            padding: 10px 15px;
+            border-bottom: 1px solid #dee2e6;
+            background-color: #f8f9fa;
+        }
+
+        .user-info small {
+            color: #6c757d;
+        }
+
+        /* Hide/Show elements based on login status */
+        .auth-buttons {
+            display: block;
+        }
+
+        .user-section {
+            display: none;
+        }
+
+        .logged-in .auth-buttons {
+            display: none;
+        }
+
+        .logged-in .user-section {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Photo Gallery Styling */
+        .photo-gallery {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .photo-card-body {
+            padding: 15px;
+        }
+
+        .photo-card-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .photo-card-meta {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .upload-area {
+            border: 2px dashed #007bff;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            background-color: #f8f9fa;
+        }
+
+        .upload-area.dragover {
+            background-color: #e3f2fd;
+            border-color: #1976d2;
+        }
+
+        /* Admin Panel Styling */
+        .admin-panel {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .role-admin { background-color: #dc3545; color: white; }
+        .role-manager { background-color: #fd7e14; color: white; }
+        .role-staff { background-color: #ffc107; color: black; }
+        .role-customer { background-color: #007bff; color: white; }
+
+        /* Loading and Error States */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .photo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+            
+            .admin-controls {
+                flex-direction: column;
+            }
+            
+            .upload-area {
+                padding: 20px;
+            }
+        }
+
+        /* Project Info Styling */
+        .project-info {
+            background-color: #f9f9f9;
+            padding: 60px 0;
+            margin-top: 30px;
+        }
+
+        .project-info h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .project-info .feature-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #fff;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-info .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-info .feature-card i {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+
+        .project-info ul {
+            list-style-type: none;
+            padding-left: 0;
+            font-size: 1.1rem;
+        }
+
+        .project-info ul li {
+            margin-bottom: 12px;
+        }
+
+        .project-info ul li::before {
+            content: '\2022';
+            color: #007bff;
+            font-size: 1.4rem;
+            padding-right: 10px;
+        }
+
+        .project-info-code {
+            background-color: #e9ecef;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: monospace;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* User Avatar and Authentication Styling */
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .user-dropdown {
+            position: relative;
+        }
+
+        .dropdown-menu {
+            min-width: 200px;
+        }
+
+        .user-info {
+            padding: 10px 15px;
+            border-bottom: 1px solid #dee2e6;
+            background-color: #f8f9fa;
+        }
+
+        .user-info small {
+            color: #6c757d;
+        }
+
+        /* Hide/Show elements based on login status */
+        .auth-buttons {
+            display: block;
+        }
+
+        .user-section {
+            display: none;
+        }
+
+        .logged-in .auth-buttons {
+            display: none;
+        }
+
+        .logged-in .user-section {
+            display: flex;
+            align-items: center;
+        }
+
+        /* Photo Gallery Styling */
+        .photo-gallery {
+            padding: 60px 0;
+            background-color: #f8f9fa;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .photo-card-body {
+            padding: 15px;
+        }
+
+        .photo-card-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .photo-card-meta {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .upload-area {
+            border: 2px dashed #007bff;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .upload-area:hover {
+            background-color: #f8f9fa;
+        }
+
+        .upload-area.dragover {
+            background-color: #e3f2fd;
+            border-color: #1976d2;
+        }
+
+        /* Admin Panel Styling */
+        .admin-panel {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .admin-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .role-admin { background-color: #dc3545; color: white; }
+        .role-manager { background-color: #fd7e14; color: white; }
+        .role-staff { background-color: #ffc107; color: black; }
+        .role-customer { background-color: #007bff; color: white; }
+
+        /* Loading and Error States */
+        .loading {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .photo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+            
+            .admin-controls {
+                flex-direction: column;
+            }
+            
+            .upload-area {
+                padding: 20px;
+            }
+        }
+    
