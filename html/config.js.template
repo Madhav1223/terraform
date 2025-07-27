@@ -7,7 +7,9 @@ window.COGNITO_CONFIG = {
     userPoolWebClientId: "${user_pool_client_id}",
     authDomain: "${auth_domain}",
     s3BucketName: "${s3_bucket_name}",
-    websiteUrl: "${website_url}"
+    websiteUrl: "${website_url}",
+    apiGatewayUrl: "${api_gateway_url}",
+    photoBucketName: "${photo_bucket_name}"
 };
 
 console.log("Cognito config loaded:", window.COGNITO_CONFIG);

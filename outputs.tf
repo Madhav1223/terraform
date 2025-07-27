@@ -34,3 +34,8 @@ output "register_page_url" {
   description = "URL of the register page"
   value       = "https://${aws_s3_bucket.static_website.bucket}.s3-website-${var.region}.amazonaws.com/register.html"
 }
+
+output "api_gateway_url" {
+  description = "API Gateway URL for photo management"
+  value       = aws_api_gateway_stage.photo_api.invoke_url
+}
