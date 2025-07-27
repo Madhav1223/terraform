@@ -95,6 +95,8 @@ resource "aws_s3_object" "config_file" {
     auth_domain         = "${aws_cognito_user_pool_domain.main.domain}.auth.${var.region}.amazoncognito.com"
     s3_bucket_name      = aws_s3_bucket.static_website.bucket
     website_url         = "https://${aws_s3_bucket.static_website.bucket}.s3-website-${var.region}.amazonaws.com"
+    api_gateway_url     = "https://placeholder-api.execute-api.${var.region}.amazonaws.com/prod"
+    photo_bucket_name   = "placeholder-photo-bucket"
   })
   content_type = "application/javascript"
 }

@@ -792,56 +792,74 @@ async function uploadPhoto(file) {
   try {
     showLoading("Uploading photo...");
 
-    // Simulate photo upload to S3 and save metadata to DynamoDB
-    // In production, this would use AWS SDK with proper authentication
+    // Get description from form if it exists
+    const descriptionInput = document.getElementById("photoDescription");
+    const description = descriptionInput ? descriptionInput.value : "";
 
+    // Simulate photo upload and create photo object
     const photoData = {
       id: generateUUID(),
       fileName: file.name,
       size: file.size,
       type: file.type,
+      description: description,
       uploadedBy: currentUser.email,
       uploadedAt: new Date().toISOString(),
-      url: URL.createObjectURL(file), // In production, this would be S3 URL
+      url: URL.createObjectURL(file), // Create a local URL for the file
     };
 
     // Simulate API call delay
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    // Add to local photos array (in production, this would be saved to DynamoDB)
+    // Add to local photos array (simulating DynamoDB storage)
     photos.push(photoData);
     localStorage.setItem("photos", JSON.stringify(photos));
-
-    // Refresh photo gallery
-    displayPhotos();
 
     showSuccess("Photo uploaded successfully!");
 
     // Clear form
     document.getElementById("imageUpload").value = "";
+    if (descriptionInput) descriptionInput.value = "";
     const preview = document.querySelector("#upload-section .preview");
     if (preview) preview.remove();
+
+    // Refresh photo gallery
+    displayPhotos();
 
     hideLoading();
   } catch (error) {
     console.error("Error uploading photo:", error);
-    showError("Failed to upload photo. Please try again.");
+    showError(`Failed to upload photo: ${error.message}`);
     hideLoading();
   }
 }
 
-function loadPhotos() {
+async function loadPhotos() {
   try {
-    // Load photos from localStorage (in production, this would be DynamoDB)
+    if (!currentUser) {
+      clearPhotoGallery();
+      return;
+    }
+
+    showLoading("Loading photos...");
+
+    // Load photos from localStorage (simulating API call)
     const storedPhotos = localStorage.getItem("photos");
     if (storedPhotos) {
       photos = JSON.parse(storedPhotos);
+    } else {
+      photos = [];
     }
 
+    // Simulate API call delay
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
     displayPhotos();
+    hideLoading();
   } catch (error) {
     console.error("Error loading photos:", error);
-    showError("Failed to load photos.");
+    showError(`Failed to load photos: ${error.message}`);
+    hideLoading();
   }
 }
 
@@ -998,6 +1016,16 @@ function loadUserStats() {
     .addEventListener("hidden.bs.modal", function () {
       this.remove();
     });
+}
+
+// Helper function to convert file to base64
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 }
 
 // Utility Functions

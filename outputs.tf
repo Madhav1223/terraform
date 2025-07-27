@@ -34,3 +34,14 @@ output "register_page_url" {
   description = "URL of the register page"
   value       = "https://${aws_s3_bucket.static_website.bucket}.s3-website-${var.region}.amazonaws.com/register.html"
 }
+
+# Note: API Gateway and Photo bucket outputs will be added when Lambda functions are deployed
+# output "api_gateway_url" {
+#   description = "URL of the API Gateway"
+#   value       = "https://${aws_api_gateway_rest_api.photo_api.id}.execute-api.${var.region}.amazonaws.com/prod"
+# }
+
+# output "photo_bucket_name" {
+#   description = "Name of the photo storage S3 bucket"
+#   value       = aws_s3_bucket.photo_storage.bucket
+# }
